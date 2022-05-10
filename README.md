@@ -301,4 +301,35 @@ postgres=>
 TAP user portal is built on top of the [backstage](https://backstage.io/) which is centered on the idea of a [software
 catalog](https://backstage.io/docs/features/software-catalog/software-catalog-overview) that contains 
 a model of the organizational structure and software domains, systems, components, resources, apis's you can read more 
-about it at [![Software Model](docs/software-model-entities.drawio.svg)]
+about it at on the backstage docs at [System Model](https://backstage.io/docs/features/software-catalog/system-model)
+Diagram belows shows the backstage structure
+[![Software Model](docs/software-model-entities.drawio.svg)]
+
+## Register the app in the backstage catalog
+
+1. Inspect the catalog definition file at `runtime/tap/catalog-info.yaml` it contains the metadata about the application
+   that should be stored in the software catalog.
+```text
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-api
+  description: Example API using Spring Boot
+  tags:
+    - java
+    - spring
+    - api
+    - tanzu
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=sample-api'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team
+```
+2. Login to the TAP gui and register the catalog by clicking the register button and setting the url to the 
+   `catalog-info.yaml` file such as `https://github.com/asaikali/sample-api-accelerator/blob/main/runtime/tap/catalog-info.yaml`
+3. Once the App is registered can see it on the software catalog user interface 
+4. Click on the componet explore the UI 
+5. make sure to navigate to the runtime tab and see the knative service and app live view
+   ![Runtime View](/docs/runtimeview.png?raw=true "Runtime view")
