@@ -230,6 +230,7 @@ sample-api-build-1-build-pod   Pending   0          18s
 
 8. Using the TAP GUI you can get a visualization of the progress of the workload through the supply chain, example
    output show below
-   [[docs/supply-chain.png|supply chain]]
+   
+   [/docs/supply-chain.png|supply chain]
 
 10. 
