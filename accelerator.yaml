@@ -72,6 +72,12 @@ engine:
             - text: 11
               with: "#javaVersion"
     - condition: "#noDB == true"
+      include: [ "stateless/*.java" ]
+      chain:
+        - type: RewritePath
+          regex: stateless/(*.java)
+          rewriteTo: "'src/main/java/com/example' + #g1"
+    - condition: "#noDB == true"
       include: [ "stateless/pom.xml" ]
       chain:
         - type: RewritePath
