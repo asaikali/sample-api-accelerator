@@ -61,23 +61,3 @@ engine:
       include: [ "applications/billboard-stateless/**" ]
     - condition: "#noDB == false"
       include: [ "components/database/**", "applications/billboard/**" ]
-    - include: [ "build.gradle.kts"]
-      chain:
-        - type: ReplaceText
-          condition: "#sonar == true"
-          substitutions:
-            - text: asaikali_example-spring-accelerator
-              with: "#projectKey"
-        - type: ReplaceText
-          condition: "#sonar == false"
-          substitutions:
-            - text: |
-                sonarqube {
-                    properties {
-                        property("sonar.projectKey", "asaikali_example-spring-accelerator")
-                        property("sonar.organization", "asaikali")
-                        property("sonar.host.url", "https://sonarcloud.io")
-                    }
-                }
-              with: "''"
-
