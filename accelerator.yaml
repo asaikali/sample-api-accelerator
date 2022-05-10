@@ -1,6 +1,6 @@
 accelerator:
   displayName: SpringBoot REST API
-  description: An example starting template for official spring based API at ACME Inc.
+  description: An example starting template for official spring based API at ACME Inc
   iconUrl: https://raw.githubusercontent.com/sample-accelerators/icons/master/icon-cloud.png
   tags:
     - Java
@@ -50,14 +50,14 @@ engine:
           substitutions:
             - text: sample-api-accelerator
               with: "#artifactId"
-    - condition: "#javaVersion == '17'"
-      include: [ "pom.xml" ]
-      chain:
-        - type: ReplaceText
-          substitutions:
-            - text: "<java.version>11</java.version>"
-              with: "<java.version>11</java.version>"
-    - condition: "#noDB == true"
-      include: [ "applications/billboard-stateless/**" ]
-    - condition: "#noDB == false"
-      include: [ "components/database/**", "applications/billboard/**" ]
+#    - condition: "#javaVersion == '17'"
+#      include: [ "pom.xml" ]
+#      chain:
+#        - type: ReplaceText
+#          substitutions:
+#            - text: "<java.version>11</java.version>"
+#              with: "<java.version>11</java.version>"
+#    - condition: "#noDB == true"
+#      include: [ "applications/billboard-stateless/**" ]
+#    - condition: "#noDB == false"
+#      include: [ "components/database/**", "applications/billboard/**" ]
