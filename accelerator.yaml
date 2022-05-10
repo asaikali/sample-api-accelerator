@@ -51,7 +51,7 @@ engine:
             - text: sample-api-accelerator
               with: "#artifactId"
         - condition: "#javaVersion == '17'"
-        - type: ReplaceText
+          type: ReplaceText
           substitutions:
             - text: "'<java.version>11</java.version>'"
               with: "'<java.version>17</java.version>'"
