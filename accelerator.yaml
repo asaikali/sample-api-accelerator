@@ -50,11 +50,11 @@ engine:
           substitutions:
             - text: sample-api-accelerator
               with: "#artifactId"
-        - condition: "#javaVersion == '17'"
-          type: ReplaceText
+        - type: ReplaceText
+          condition: "#javaVersion == '17'"
           substitutions:
-            - text: "'<java.version>11</java.version>'"
-              with: "'<java.version>17</java.version>'"
+            - text: "'11'"
+              with: "'17'"
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
 #    - condition: "#noDB == false"
