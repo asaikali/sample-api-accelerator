@@ -73,8 +73,8 @@ engine:
       include: [ "stateless/pom.xml" ]
       chain:
         - type: RewritePath
-          regex: stateless/pom.xml
-          rewriteTo: "'/pom.xml'"
+          regex: stateless/(pom.xml)
+          rewriteTo: "#g1"
     - condition: "#platform == 'tas'"
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
