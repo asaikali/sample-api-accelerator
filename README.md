@@ -266,4 +266,4 @@ NAME         READY   URL
 sample-api   Ready   http://sample-api-asaikali.cnr.iterate.gcp.tanzu.ca
 ```
 10. Visit the application at the printed url you will see rotating motivational quote similar to the screenshot below
-    ![Supply chain](/docs/quto-app.png?raw=true "Example Supply Chain")
+    ![Supply chain](/docs/quote-app.png?raw=true "Example Supply Chain")
