@@ -75,6 +75,15 @@ engine:
         - type: RewritePath
           regex: stateless/(pom.xml)
           rewriteTo: "#g1"
+        - type: ReplaceText
+          substitutions:
+            - text: sample-api-accelerator
+              with: "#artifactId"
+        - type: ReplaceText
+            condition: "#javaVersion == '17'"
+            substitutions:
+              - text: 11
+                with: "#javaVersion"
     - condition: "#platform == 'tas'"
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
