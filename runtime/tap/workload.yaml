@@ -20,4 +20,4 @@ spec:
       ref:
         apiVersion: services.apps.tanzu.vmware.com/v1alpha1
         kind: ResourceClaim
-        name: myclaim # postgres gcp secret claim
+        name: cloudsql-postgres-claim # postgres gcp secret claim
