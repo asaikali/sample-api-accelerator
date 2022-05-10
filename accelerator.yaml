@@ -70,6 +70,13 @@ engine:
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
       include: [ "runtime/tap/**" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: sample-api
+              with: "#artifactId"
+
+
 
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
