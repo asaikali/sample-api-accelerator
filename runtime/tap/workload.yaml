@@ -12,7 +12,7 @@ spec:
         autoscaling.knative.dev/minScale: "1" # stop the workload scaling to 0 for debugging
   source:
     git:
-      url: https://github.com/asaikali/sample-api-accelerator.git
+      url: https://github.com/asaikali/sample-boot-api-accelerator.git
       ref:
         branch: main
   serviceClaims:
