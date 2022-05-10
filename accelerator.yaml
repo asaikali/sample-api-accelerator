@@ -1,6 +1,6 @@
 accelerator:
   displayName: SpringBoot REST API
-  description: An example starting template for official spring based API at ACME Inc
+  description: An example showing how to build a rest API using Spring Boot & Google Cloud SQL Postgres provisioned using crossplane.io
   iconUrl: https://raw.githubusercontent.com/sample-accelerators/icons/master/icon-cloud.png
   tags:
     - Java
