@@ -50,9 +50,7 @@ engine:
           substitutions:
             - text: sample-api-accelerator
               with: "#artifactId"
-    - condition: "#javaVersion == '17'"
-      include: [ "pom.xml" ]
-      chain:
+        - condition: "#javaVersion == '17'"
         - type: ReplaceText
           substitutions:
             - text: "'<java.version>11</java.version>'"
