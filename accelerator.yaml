@@ -15,12 +15,12 @@ accelerator:
         dataType: string
         display: true
         required: true
-        defaultValue: "TAP"
+        defaultValue: "tap"
         choices:
           - text: Kubernetes (TAP)
-            value: "TAP"
+            value: "tap"
           - text: Cloud Foundry (TAS)
-            value: "TAS"
+            value: "tas"
     - name: javaVersion
       inputType: select
       dataType: string
