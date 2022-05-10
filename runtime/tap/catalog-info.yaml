@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: sample-api
+  description: Example API using Spring Boot
+  tags:
+    - java
+    - spring
+    - api
+    - tanzu
+  annotations:
+    'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/part-of=sample-api'
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team

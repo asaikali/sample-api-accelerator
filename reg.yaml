@@ -1,10 +1,11 @@
 apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
 kind: Accelerator
 metadata:
-  name: example-spring-accelerator
+  name: sample-api-accelerator
+  namespace: accelerator-system
 spec:
   git:
-    url: https://github.com/asaikali/example-spring-accelerator
+    url:  https://github.com/asaikali/sample-api-accelerator
     interval: 10s
     ref:
       branch: main

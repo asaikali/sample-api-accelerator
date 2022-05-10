@@ -8,3 +8,7 @@ This sample includes a docker-compose file for running PostgreSQL 12 in `db/loca
 start a local PostgreSQL easily for local development. It will run port 15432 and pgAdmin ui will run 
 on port 15433.
 
+# Deploying to Kubernetes
+
+Deployment to Kubernetes is handled via the Tanzu Application Platform
+
