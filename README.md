@@ -160,3 +160,76 @@ Resource to Claim:
   Version: v1
   Kind: Secret
 ```
+
+## Deploy the app to Tanzu Application Platform 
+
+Now that the database is created and we have a service claim configured
+we will deploy the app workload to the TAP developer namespace.
+
+1. Inspect the work load definition file at `runtime/tap/workload.yaml`
+2. Check that the workload is pointing at your git repo of the sample api
+3. Check that the service claim matches the service claim created earlier
+4. You can apply the workload yaml using `kubectl` or the tanzu cli. Let's
+   use the tanzu cli `tanzu app workload create -f runtime/tap/workload.yaml -n DEV-NAME-SPACE`
+   for example my dev workspace is called `asaikali' so I use the command
+   `tanzu app workload create -f runtime/tap/workload.yaml -n asaikali` which produces output
+```text
+Create workload:
+      1 + |---
+      2 + |apiVersion: carto.run/v1alpha1
+      3 + |kind: Workload
+      4 + |metadata:
+      5 + |  labels:
+      6 + |    app.kubernetes.io/part-of: sample-api
+      7 + |    apps.tanzu.vmware.com/workload-type: web
+      8 + |  name: sample-api
+      9 + |  namespace: asaikali
+     10 + |spec:
+     11 + |  params:
+     12 + |  - name: annotations
+     13 + |    value:
+     14 + |      autoscaling.knative.dev/minScale: "1"
+     15 + |  serviceClaims:
+     16 + |  - name: cloudsql-postgres
+     17 + |    ref:
+     18 + |      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+     19 + |      kind: ResourceClaim
+     20 + |      name: cloudsql-postgres-claim
+     21 + |  source:
+     22 + |    git:
+     23 + |      ref:
+     24 + |        branch: main
+     25 + |      url: https://github.com/asaikali/sample-api-accelerator.git
+
+? Do you want to create this workload? (y/N) 
+```
+5. Review the output for the workload creation and accept it. 
+6. Check on the status of the newly submitted workload with the command 
+   `tanzu app workload get sample-api -n asaikali` it will produce output similar to 
+```text
+# sample-api: Unknown
+---
+lastTransitionTime: "2022-05-10T05:13:52Z"
+message: waiting to read value [.status.latestImage] from resource [image.kpack.io/sample-api]
+  in namespace [asaikali]
+reason: MissingValueAtPath
+status: Unknown
+type: Ready
+
+Services
+CLAIM               NAME                      KIND            API VERSION
+cloudsql-postgres   cloudsql-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
+
+Pods
+NAME                           STATUS    RESTARTS   AGE
+sample-api-build-1-build-pod   Pending   0          18s
+```
+7. It can take a few minutes for the workload to make its way through the TAP supply chain, you can 
+   keep an eye on the workload using the command `tanzu app workload tail sample-api -n asaikali --since 1h`
+   which will produce a very length log all the output from the steps in the supply chain.
+
+8. Using the TAP GUI you can get a visualization of the progress of the workload through the supply chain, example
+   output show below
+   [[docs/supply-chain.png|supply chain]]
+
+10. 
