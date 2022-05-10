@@ -80,10 +80,10 @@ engine:
             - text: sample-api-accelerator
               with: "#artifactId"
         - type: ReplaceText
-            condition: "#javaVersion == '17'"
-            substitutions:
-              - text: 11
-                with: "#javaVersion"
+          condition: "#javaVersion == '17'"
+          substitutions:
+            - text: 11
+              with: "#javaVersion"
     - condition: "#platform == 'tas'"
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
