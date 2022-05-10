@@ -1,0 +1,95 @@
+accelerator:
+  displayName: SpringBoot REST API
+  description: An example starting template for official spring based API at ACME Inc.
+  iconUrl: https://raw.githubusercontent.com/sample-accelerators/icons/master/icon-cloud.png
+  tags:
+    - Java
+    - Spring
+    - Web
+    - JPA
+    - API
+    - ford
+  options:
+    - name: javaVersion
+      inputType: select
+      dataType: string
+      display: true
+      required: true
+      defaultValue: "11"
+      choices:
+        - text: 11 (Supported in Production)
+          value: "11"
+        - text: 17 (Production in Oct 2022, QA only for now)
+          value: "17"
+    - name: noDB
+      label: Stateless (Don't need a database)
+      inputType: toggle
+      display: false
+      dataType: boolean
+      defaultValue: false
+    - name: sonar
+      label: use sonarqube
+      inputType: toggle
+      display: true
+      dataType: boolean
+      defaultValue: false
+    - name: projectKey
+      label: Sonar project key
+      dataType: string
+      defaultValue: ''
+      dependsOn:
+        name: sonar
+
+engine:
+  merge:
+    - include: [ "**/**" ]
+      exclude: [ "reg.yaml", "components/database/**", "applications/**", "ytt/**" ]
+    - include: [ "settings.gradle.kts" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: example-spring-accelerator
+              with: "#artifactId"
+    - condition: "#javaVersion == '17'"
+      include: [ "buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: JavaLanguageVersion.of(11)
+              with: "'JavaLanguageVersion.of(17)'"
+    - include: [ ".github/workflows/build.yml" ]
+      chain:
+        - type: ReplaceText
+          condition: "#javaVersion == '17'"
+          substitutions:
+            - text: 11
+              with: "'17'"
+        - type: ReplaceText
+          condition: "#sonar == false"
+          substitutions:
+            - text: sonarqube
+              with: "''"
+    - condition: "#noDB == true"
+      include: [ "applications/billboard-stateless/**" ]
+    - condition: "#noDB == false"
+      include: [ "components/database/**", "applications/billboard/**" ]
+    - include: [ "build.gradle.kts"]
+      chain:
+        - type: ReplaceText
+          condition: "#sonar == true"
+          substitutions:
+            - text: asaikali_example-spring-accelerator
+              with: "#projectKey"
+        - type: ReplaceText
+          condition: "#sonar == false"
+          substitutions:
+            - text: |
+                sonarqube {
+                    properties {
+                        property("sonar.projectKey", "asaikali_example-spring-accelerator")
+                        property("sonar.organization", "asaikali")
+                        property("sonar.host.url", "https://sonarcloud.io")
+                    }
+                }
+              with: "''"
+
