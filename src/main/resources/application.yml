@@ -1,3 +1,7 @@
-server:
-  port: 8080
-
+spring:
+  datasource:
+    url: "jdbc:postgresql://127.0.0.1:15432/quotes"
+    username: postgres
+    password: password
+  jpa:
+    open-in-view: false
