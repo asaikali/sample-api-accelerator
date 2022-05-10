@@ -50,13 +50,13 @@ engine:
           substitutions:
             - text: sample-api-accelerator
               with: "#artifactId"
-#    - condition: "#javaVersion == '17'"
-#      include: [ "pom.xml" ]
-#      chain:
-#        - type: ReplaceText
-#          substitutions:
-#            - text: "<java.version>11</java.version>"
-#              with: "<java.version>11</java.version>"
+    - condition: "#javaVersion == '17'"
+      include: [ "pom.xml" ]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "11"
+              with: "17"
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
 #    - condition: "#noDB == false"
