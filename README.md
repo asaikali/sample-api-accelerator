@@ -267,3 +267,32 @@ sample-api   Ready   http://sample-api-asaikali.cnr.iterate.gcp.tanzu.ca
 ```
 10. Visit the application at the printed url you will see rotating motivational quote similar to the screenshot below
     ![Supply chain](/docs/quote-app.png?raw=true "Example Supply Chain")
+
+11. If you want you can connect to the postgres db from the gcp shell using the command
+    `gcloud sql connect myinstance --user=postgres`  to get into the psql cli and inspect the database. Example output
+```text
+gcloud sql connect sample-api-db-hqvhc-2bv5p --user=postgres                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                      Allowlisting your IP for incoming connection for 5 minutes...done.Connecting to database with SQL user [postgres].Password:psql (14.2 (Debian 14.2-1.pgdg110+1), server 12.10)SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
+Type "help" for help.
+
+postgres=> \dt
+                 List of relations
+ Schema |         Name          | Type  |  Owner
+--------+-----------------------+-------+----------
+ public | flyway_schema_history | table | postgres
+ public | quotes                | table | postgres
+(2 rows)
+
+postgres=> select * from quotes;
+ id |                 quote                 |        author
+----+---------------------------------------+-----------------------
+  1 | Never, never, never give up           | Winston Churchill
+  2 | While there's life, there's hope      | Marcus Tullius Cicero
+  3 | Failure is success in progress        | Anonymous
+  4 | Success demands singleness of purpose | Vincent Lombardi
+  5 | The shortest answer is doing          | Lord Herbert
+(5 rows)
+
+postgres=>
+
+```
