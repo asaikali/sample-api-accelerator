@@ -53,8 +53,8 @@ engine:
         - type: ReplaceText
           condition: "#javaVersion == '17'"
           substitutions:
-            - text: "'11'"
-              with: "'17'"
+            - text: 11
+              with: "#javaVersion"
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
 #    - condition: "#noDB == false"
