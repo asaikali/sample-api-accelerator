@@ -75,7 +75,7 @@ engine:
       include: [ "stateless/*.java" ]
       chain:
         - type: RewritePath
-          regex: stateless/(*.java)
+          regex: stateless/(.*)
           rewriteTo: "'src/main/java/com/example' + #g1"
     - condition: "#noDB == true"
       include: [ "stateless/pom.xml" ]
