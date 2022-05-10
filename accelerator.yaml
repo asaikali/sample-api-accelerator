@@ -10,6 +10,17 @@ accelerator:
     - API
     - ford
   options:
+    - name: platform
+        inputType: select
+        dataType: string
+        display: true
+        required: true
+        defaultValue: "TAP"
+        choices:
+          - text: Kubernetes (TAP)
+            value: "TAP"
+          - text: Cloud Foundry (TAS)
+            value: "TAS"
     - name: javaVersion
       inputType: select
       dataType: string
@@ -43,7 +54,7 @@ accelerator:
 engine:
   merge:
     - include: [ "**/**" ]
-      exclude: [ "reg.yaml", "components/database/**", "applications/**", "ytt/**" ]
+      exclude: [ "reg.yaml", "runtime/**"]
     - include: [ "pom.xml" ]
       chain:
         - type: ReplaceText
@@ -55,6 +66,11 @@ engine:
           substitutions:
             - text: 11
               with: "#javaVersion"
+    - condition: "#platform == 'tas'"
+      include: [ "runtime/tas/**" ]
+    - condition: "#platform == 'tap'"
+      include: [ "runtime/tap/**" ]
+
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
 #    - condition: "#noDB == false"
