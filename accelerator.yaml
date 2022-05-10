@@ -68,6 +68,16 @@ engine:
           substitutions:
             - text: 11
               with: "#javaVersion"
+        - type: ReplaceText
+          condition: "#noDB == true"
+          substitutions:
+            - text: |
+                <dependency>
+                  <groupId>com.h2database</groupId>
+                  <artifactId>h2</artifactId>
+                  <scope>test</scope>
+                </dependency>
+              with: "''"
     - condition: "#platform == 'tas'"
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
