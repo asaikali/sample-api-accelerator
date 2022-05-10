@@ -11,6 +11,7 @@ accelerator:
     - ford
   options:
     - name: platform
+      label: "Where will the application be deployed to?"
       inputType: select
       dataType: string
       display: true
@@ -22,6 +23,7 @@ accelerator:
         - text: Cloud Foundry (TAS)
           value: "tas"
     - name: javaVersion
+      label: "Which Java version do you want to use?"
       inputType: select
       dataType: string
       display: true
