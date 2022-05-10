@@ -1,6 +1,7 @@
 # sample-api-accelerator
 
-Example accelerator for creating a spring boot based REST api
+This example application has a starter Spring REST api. The steps below show you how 
+deploy and manage the app on Tanzu Application Platform.
 
 # Local Development 
 
@@ -232,4 +233,37 @@ sample-api-build-1-build-pod   Pending   0          18s
    output show below
    ![Supply chain](/docs/supply-chain.png?raw=true "Example Supply Chain")
 
-10. 
+9. Once you see that the supply chain has finished running you can get the URI of the of the app by running the 
+   command  `tanzu app workload get sample-api -n asaikali` it will print out the url at the bottom of the output,
+   as shown below 
+```text
+# sample-api: Ready
+---
+lastTransitionTime: "2022-05-10T05:15:35Z"
+message: ""
+reason: Ready
+status: "True"
+type: Ready
+
+Services
+CLAIM               NAME                      KIND            API VERSION
+cloudsql-postgres   cloudsql-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
+
+Pods
+NAME                                           STATUS      RESTARTS   AGE
+sample-api-00005-deployment-5997b4c6c6-f9pzf   Running     0          82s
+sample-api-build-1-build-pod                   Succeeded   0          15m
+sample-api-build-2-build-pod                   Succeeded   0          6m28s
+sample-api-build-3-build-pod                   Succeeded   0          4m27s
+sample-api-build-4-build-pod                   Succeeded   0          3m14s
+sample-api-config-writer-8bld9-pod             Succeeded   0          114s
+sample-api-config-writer-lr8vt-pod             Succeeded   0          13m
+sample-api-config-writer-m9sxf-pod             Succeeded   0          5m32s
+sample-api-config-writer-zskh4-pod             Succeeded   0          3m3s
+
+Knative Services
+NAME         READY   URL
+sample-api   Ready   http://sample-api-asaikali.cnr.iterate.gcp.tanzu.ca
+```
+10. Visit the application at the printed url you will see rotating motivational quote similar to the screenshot below
+    ![Supply chain](/docs/quto-app.png?raw=true "Example Supply Chain")
