@@ -294,5 +294,11 @@ postgres=> select * from quotes;
 (5 rows)
 
 postgres=>
-
 ```
+
+# View App in TAP GUI Software Catalog 
+
+TAP user portal is built on top of the [backstage](https://backstage.io/) which is centered on the idea of a [software
+catalog](https://backstage.io/docs/features/software-catalog/software-catalog-overview) that contains 
+a model of the organizational structure and software domains, systems, components, resources, apis's you can read more 
+about it at [![Software Model](docs/software-model-entities.drawio.svg)]
