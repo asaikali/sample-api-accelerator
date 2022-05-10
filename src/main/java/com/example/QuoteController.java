@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class QuoteController {
 
-    private final QuoteRepository quoteRepository;
+    private final QuoteService quoteService;
     private final Environment environment;
 
-    public QuoteController(QuoteRepository quoteRepository, Environment environment) {
-        this.quoteRepository = quoteRepository;
+    public QuoteController(QuoteService quoteRepository, Environment environment) {
+        this.quoteService = quoteRepository;
         this.environment = environment;
     }
 
     @GetMapping("/random-quote")
     public Quote randomQuote()
     {
-        Quote result = quoteRepository.findRandomQuote();
+        Quote result = quoteService.randomQuote();
         if(CloudPlatform.KUBERNETES.isActive(environment)) {
             result.setK8s(true);
         }

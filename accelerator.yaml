@@ -56,8 +56,10 @@ accelerator:
 engine:
   merge:
     - include: [ "**/**" ]
-      exclude: [ "reg.yaml", "runtime/**", "stateless/**", "pom.xml"]
-    - include: [ "pom.xml"]
+      exclude: [ "reg.yaml", "runtime/**", "stateless/**", "pom.xml", "src/main/java/com/example/QuoteRepository.java", "src/main/java/com/example/DatabaseQuoteService.java", "src/main/java/com/example/Quote.java" ]
+    - include: [ "src/main/java/com/example/QuoteRepository.java", "src/main/java/com/example/DatabaseQuoteService.java", "src/main/java/com/example/Quote.java"]
+      condition: "#noDB == false"
+    - include: [ "pom.xml" ]
       condition: "#noDB == false"
       chain:
         - type: ReplaceText

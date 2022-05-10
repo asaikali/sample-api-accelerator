@@ -7,21 +7,11 @@ import javax.persistence.Table;
 import java.util.Objects;
 import javax.persistence.Transient;
 
-@Entity
-@Table(name = "quotes")
 public class Quote
 {
-    @Id
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name="quote")
     private String quote;
-
-    @Column(name="author")
     private String author;
-
-    @Transient
     private boolean k8s = false;
 
   public boolean isK8s() {
