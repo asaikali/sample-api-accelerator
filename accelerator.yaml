@@ -55,8 +55,8 @@ engine:
       chain:
         - type: ReplaceText
           substitutions:
-            - text: "11"
-              with: "17"
+            - text: "'<java.version>11</java.version>'"
+              with: "'<java.version>17</java.version>'"
 #    - condition: "#noDB == true"
 #      include: [ "applications/billboard-stateless/**" ]
 #    - condition: "#noDB == false"
