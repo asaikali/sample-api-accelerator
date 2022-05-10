@@ -44,31 +44,19 @@ engine:
   merge:
     - include: [ "**/**" ]
       exclude: [ "reg.yaml", "components/database/**", "applications/**", "ytt/**" ]
-    - include: [ "settings.gradle.kts" ]
+    - include: [ "pom.xml" ]
       chain:
         - type: ReplaceText
           substitutions:
-            - text: example-spring-accelerator
+            - text: sample-api-accelerator
               with: "#artifactId"
     - condition: "#javaVersion == '17'"
-      include: [ "buildSrc/src/main/kotlin/java-library-conventions.gradle.kts" ]
+      include: [ "pom.xml" ]
       chain:
         - type: ReplaceText
           substitutions:
-            - text: JavaLanguageVersion.of(11)
-              with: "'JavaLanguageVersion.of(17)'"
-    - include: [ ".github/workflows/build.yml" ]
-      chain:
-        - type: ReplaceText
-          condition: "#javaVersion == '17'"
-          substitutions:
-            - text: 11
-              with: "'17'"
-        - type: ReplaceText
-          condition: "#sonar == false"
-          substitutions:
-            - text: sonarqube
-              with: "''"
+            - text: "<java.version>11</java.version>"
+              with: "<java.version>11</java.version>"
     - condition: "#noDB == true"
       include: [ "applications/billboard-stateless/**" ]
     - condition: "#noDB == false"

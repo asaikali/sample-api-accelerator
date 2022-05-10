@@ -12,7 +12,6 @@
   <groupId>com.example</groupId>
   <artifactId>sample-api-accelerator</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>k8s-boot</name>
   <description>Sample API Accelerator</description>
 
   <properties>
