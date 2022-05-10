@@ -56,8 +56,9 @@ accelerator:
 engine:
   merge:
     - include: [ "**/**" ]
-      exclude: [ "reg.yaml", "runtime/**"]
-    - include: [ "pom.xml" ]
+      exclude: [ "reg.yaml", "runtime/**", "stateless/**", "pom.xml"]
+    - include: [ "pom.xml"]
+      condition: "#noDB == false"
       chain:
         - type: ReplaceText
           substitutions:
@@ -68,16 +69,12 @@ engine:
           substitutions:
             - text: 11
               with: "#javaVersion"
-        - type: ReplaceText
-          condition: "#noDB == true"
-          substitutions:
-            - text: |
-                <dependency>
-                  <groupId>com.h2database</groupId>
-                  <artifactId>h2</artifactId>
-                  <scope>test</scope>
-                </dependency>
-              with: "''"
+    - condition: "#noDB == true"
+      include: [ "stateless/pom.xml" ]
+      chain:
+        - type: RewritePath
+          regex: stateless/pom.xml
+          rewriteTo: "'/pom.xml'"
     - condition: "#platform == 'tas'"
       include: [ "runtime/tas/**" ]
     - condition: "#platform == 'tap'"
