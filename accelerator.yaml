@@ -36,13 +36,13 @@ accelerator:
           value: "17"
     - name: noDB
       label: Stateless (Don't need a GCP Cloud SQL Postgres)
-      inputType: toggle
+      #inputType: toggle
       display: false
       dataType: boolean
       defaultValue: false
     - name: sonar
       label: use sonarqube
-      inputType: toggle
+      #inputType: toggle
       display: true
       dataType: boolean
       defaultValue: false
