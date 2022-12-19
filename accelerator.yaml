@@ -22,23 +22,22 @@ accelerator:
         - text: 17
           value: "17"
     - name: noDB
-      label: Stateless (Don't need a GCP Cloud SQL Postgres)
+      label: Stateless (don't generate ARM template for Azure Database for PostgreSQL - Flexible Server)
       #inputType: toggle
       display: false
       dataType: boolean
       defaultValue: false
-    - name: sonar
-      label: use sonarqube
-      #inputType: toggle
+    - name: db
+      label: Configure Azure Database for PostgreSQL - Flexible Server
       display: true
       dataType: boolean
       defaultValue: false
-    - name: projectKey
-      label: Sonar project key
+    - name: databaseName
+      label: Name of postgres database
       dataType: string
       defaultValue: ''
       dependsOn:
-        name: sonar
+        name: db
 
 engine:
   merge:
