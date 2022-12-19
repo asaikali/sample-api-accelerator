@@ -1,0 +1,15 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "serverName": {
+      "value": "replace-with-azure-name-of-the-postgres-instance"
+    },
+    "administratorLogin": {
+      "value": "replace-with-admin-username-to-login-to-postgres"
+    },
+    "administratorLoginPassword": {
+      "value": "replace-with-secure-password-for-db"
+    }
+  }
+}

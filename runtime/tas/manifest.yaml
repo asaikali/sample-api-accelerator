@@ -1,8 +1,0 @@
----
-version: 1
-applications:
-  - name: sample-api
-    memory: 1G
-    instances: 2
-    services:
-      - postgres-db

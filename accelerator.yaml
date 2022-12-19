@@ -32,17 +32,29 @@ accelerator:
       display: true
       dataType: boolean
       defaultValue: false
-    - name: databaseName
-      label: Name of postgres database
+    - name: databaseServerName
+      label: Name of azure postgres Flexible server
       dataType: string
       defaultValue: ''
+      dependsOn:
+        name: db
+    - name: databaseName
+      label: Name of the postgres database
+      dataType: string
+      defaultValue: ''
+      dependsOn:
+        name: db
+    - name: passwordlessConnection
+      label: Use passwordless connection using Azure managed identity and RBAC
+      dataType: boolean
+      defaultValue: true
       dependsOn:
         name: db
 
 engine:
   merge:
     - include: [ "**/**" ]
-      exclude: [ "db/**", "reg.yaml", "runtime/**", "stateless/**", "pom.xml", "src/main/java/com/example/QuoteRepository.java", "src/main/java/com/example/DatabaseQuoteService.java", "src/main/java/com/example/Quote.java", "src/main/resources/application.yml" ]
+      exclude: [ "db/**", "stateless/**", "pom.xml", "src/main/java/com/example/QuoteRepository.java", "src/main/java/com/example/DatabaseQuoteService.java", "src/main/java/com/example/Quote.java", "src/main/resources/application.yml" ]
     - include: [ "db/**", "src/main/java/com/example/QuoteRepository.java", "src/main/java/com/example/DatabaseQuoteService.java", "src/main/java/com/example/Quote.java", "src/main/resources/application.yml"]
       condition: "#noDB == false"
     - include: [ "pom.xml" ]
@@ -89,8 +101,3 @@ engine:
               with: "#artifactId"
 
 
-
-#    - condition: "#noDB == true"
-#      include: [ "applications/billboard-stateless/**" ]
-#    - condition: "#noDB == false"
-#      include: [ "components/database/**", "applications/billboard/**" ]
