@@ -14,3 +14,5 @@ az deployment group create --resource-group ${RESOURCE_GROUP} \
     --resource-group demo \
     --name quotes \
     --server-name asaikali-postgres.postgres.database.azure.com
+
+# update
