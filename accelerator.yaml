@@ -27,6 +27,11 @@ accelerator:
       display: false
       dataType: boolean
       defaultValue: false
+    - name: springCloudGateway
+      label: Use Spring Cloud Gateway
+      display: true
+      dataType: boolean
+      defaultValue: false
     - name: db
       label: Configure Azure Database for PostgreSQL - Flexible Server
       display: true

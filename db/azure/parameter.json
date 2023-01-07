@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "serverName": {
-      "value": "replace-with-azure-name-of-the-postgres-instance"
+      "value": "asaikali-postgres"
     },
     "administratorLogin": {
-      "value": "replace-with-admin-username-to-login-to-postgres"
+      "value": "pgadmin"
     },
     "administratorLoginPassword": {
-      "value": "replace-with-secure-password-for-db"
+      "value": "ateuh234234oeu"
     }
   }
 }
