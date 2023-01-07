@@ -9,7 +9,7 @@
       "value": "pgadmin"
     },
     "haMode": {
-      "value": "ZoneRedundant"
+      "value": "Disabled"
     }
   }
 }
