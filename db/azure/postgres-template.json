@@ -37,7 +37,7 @@
     },
     "version": {
       "type": "string",
-      "defaultValue": "12"
+      "defaultValue": "14"
     },
     "virtualNetworkExternalId": {
       "type": "string",
@@ -50,6 +50,10 @@
     "privateDnsZoneArmResourceId": {
       "type": "string",
       "defaultValue": ""
+    },
+    "databaseName": {
+      "type": "string",
+      "defaultValue": "[concat(parameters('serverName'),'/quotes')]"
     }
   },
   "resources": [
@@ -62,6 +66,20 @@
         "name": "[parameters('dbInstanceType')]",
         "tier": "[parameters('serverEdition')]"
       },
+      "resources" : [
+        {
+          "type": "Microsoft.DBforPostgreSQL/flexibleServers/databases",
+          "apiVersion": "2022-12-01",
+          "name": "[parameters('databaseName')]",
+          "dependsOn": [
+            "[parameters('serverName')]"
+          ],
+          "properties": {
+            "charset": "UTF8",
+            "collation": "en_US.utf8"
+          }
+        }
+      ],
       "properties": {
         "version": "[parameters('version')]",
         "administratorLogin": "[parameters('administratorLogin')]",

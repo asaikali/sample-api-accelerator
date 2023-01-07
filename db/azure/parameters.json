@@ -7,9 +7,6 @@
     },
     "administratorLogin": {
       "value": "pgadmin"
-    },
-    "administratorLoginPassword": {
-      "value": "ateuh234234oeu"
     }
   }
 }

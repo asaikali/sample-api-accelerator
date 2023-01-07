@@ -1,13 +1,15 @@
 # sample-api-accelerator
 
-This example application has a starter Spring REST api. The steps below show you how 
-deploy and manage the app on Tanzu Application Platform.
+This application accelerator provides a starter Spring Boot based REST API
+that uses a Postgres database, and deploy to Azure Spring Apps service.
 
 # Local Development 
 
-This sample includes a docker-compose file for running PostgreSQL 12 in `db/local` folder. You can 
-start a local PostgreSQL easily for local development. It will run port 15432 and pgAdmin ui will run 
-on port 15433.
+You can start a local Postgres easily for local development. The `db/local`
+folder contains docker-compose file configured to run Postgres and pgAdmin 
+GUI. After you run `docker-compose up` you can access: 
+* Postgres server on `localhost:15432`
+* PgAdmin UI on `http://localhost:15433`
 
 # Deploying to Azure
 
@@ -15,9 +17,42 @@ You can deploy the API to Azure easily using Azure Spring Apps enterprise.
 
 ## Provision Azure Postgres Server 
 
+The `db/azure` folder contains an Azure ARM template that can be used to
+provision an Azure Database for PostgreSQL - Flexible Server. 
+
+### Create the Postgres Server
+
+The `db/azure/parameters.json` files contains parameters to configure
+the name of the PostgresSQL and username of the administrator. The 
+server name must be Globally unique across all of azure. When you
+run the arm template to provision the Postgres server you will be
+prompted to enter a password to secure the connection to the database.
+we don't want to 
+
+```bash
+az deployment group create \
+  --name provision-postgres-server \
+  --resource-group demo \
+  --template-file db/azure/postgres-template.json \
+  --parameters db/azure/parameters.json
+```
+
+### Delete the ARM template 
+
+```bash
+az deployment group delete \
+  --name provision-postgres-server \
+  --resource-group demo \
+  --template-file db/azure/postgres-template.json \
+  --parameters db/azure/parameters.json
+```
+
 If you need a database you can use Azure postgres offering. There is shell script
 that has been generated for you to run and configure a test database. In production
 the DevOps team will have automated pipelines that they use for making the database.
+
+
+
 
 
 ## Deploy the app to Azure Spring Apps  
