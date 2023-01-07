@@ -1,3 +1,12 @@
+#
+# Docker compose file that launches a Postgres server and PgAdmin client
+# so that it is easy to access the database. Both are run as docker containers
+# on non-standard Postgres ports to avoid conflict with local Postgres installation
+#   - localhost:15432 for postgres
+#   - localhost:15433 for pgAdmin
+#
+# for details on how this works see https://github.com/asaikali/docker-compose-postgres
+#
 version: '3.7'
 
 volumes:
