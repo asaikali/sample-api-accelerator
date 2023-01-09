@@ -1,0 +1,25 @@
+spring:
+  config:
+    activate:
+      on-profile: azure
+  datasource:
+    url:
+    username:
+    password:
+
+  jpa:
+    open-in-view: false
+  cloud:
+    azure:
+      keyvault:
+        secret:
+          property-sources:
+            - endpoint:
+          credential:
+            managed-identity-enabled: false
+            client-id:
+            client-secret:
+          profile:
+            tenant-id:
+
+

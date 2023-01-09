@@ -37,6 +37,13 @@ az deployment group create \
   --parameters db/azure/parameters.json
 ```
 
+
+```bash
+az deployment group create \
+  --resource-group demo \
+  --template-file db/azure/vault-template.json 
+```
+
 ### Delete the ARM template 
 
 ```bash
@@ -51,6 +58,15 @@ If you need a database you can use Azure postgres offering. There is shell scrip
 that has been generated for you to run and configure a test database. In production
 the DevOps team will have automated pipelines that they use for making the database.
 
+```
+az spring app create \
+ --service demo-asa \ 
+ --resource-group demo \
+ --assign-endpoint true \
+ --system-assigned \ 
+ --name quotes \
+ --jvm-options='-Dspring.profiles.active=azure'
+```
 
 
 

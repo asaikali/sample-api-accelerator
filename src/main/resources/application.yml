@@ -5,3 +5,27 @@ spring:
     password: password
   jpa:
     open-in-view: false
+
+---
+
+#
+# This configuration ony actives when the app is running on Kubernetes.
+# Since Azure spring apps runs on K8s this configuration will only
+# apply when running an azure spring apps
+#
+spring:
+  config:
+    activate:
+      on-cloud-platform: kubernetes
+  datasource:
+    url: REPLACE-WITH-JDBC-URL
+    username: REPLACE-WITH-JDBC-USERNAME
+    password: ${REPLACE-WITH-SECRET-NAME-IN-VAULT}
+  cloud:
+    azure:
+      keyvault:
+        secret:
+          property-sources:
+            - endpoint: REPLACE-WITH-VAULT-URL
+          credential:
+            managed-identity-enabled: false
