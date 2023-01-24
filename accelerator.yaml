@@ -34,7 +34,7 @@ accelerator:
         - text: 17 (Production in Feb 2022)
           value: "17"
     - name: noDB
-      label: Stateless (Don't need a GCP Cloud SQL Postgres)
+      label: Stateless (Don't need a Postgres Database)
       #inputType: toggle
       display: false
       dataType: boolean
