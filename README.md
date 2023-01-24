@@ -15,7 +15,7 @@ Deployment to Kubernetes is handled via the Tanzu Application Platform (TAP)
 running on GKE. You need access to the GKE cluster in-order to execute 
 the commands below. 
 
-## Provision GCP Cloud SQL Postgres 
+## Provision RDS Postgres 
 
 The app requires a GCP Postgres Cloud SQL so we need a way create a Postgres Cloud SQL
 instance. The cloud sql instance will be created using cross plane. Once the database
