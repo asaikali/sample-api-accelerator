@@ -1,8 +1,7 @@
 apiVersion: database.example.org/v1alpha1
 kind: PostgreSQLInstance
 metadata:
-  name: my-db
-  namespace: default
+  name: sample-api-db
 spec:
   parameters:
     storageGB: 20
@@ -11,4 +10,4 @@ spec:
       provider: aws
       vpc: default
   writeConnectionSecretToRef:
-    name: db-conn
+    name: sample-api-db-conn

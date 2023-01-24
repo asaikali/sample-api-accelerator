@@ -14,10 +14,10 @@ spec:
     git:
       url: https://github.com/asaikali/sample-boot-api-accelerator.git
       ref:
-        branch: main
+        branch: aws
   serviceClaims:
-    - name: cloudsql-postgres
+    - name: rds-postgres
       ref:
         apiVersion: services.apps.tanzu.vmware.com/v1alpha1
         kind: ResourceClaim
-        name: cloudsql-postgres-claim # name must match the service claim name
+        name: rds-postgres-claim # name must match the service claim name

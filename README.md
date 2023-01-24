@@ -17,19 +17,19 @@ the commands below.
 
 ## Provision RDS Postgres 
 
-The app requires a GCP Postgres Cloud SQL so we need a way create a Postgres Cloud SQL
-instance. The cloud sql instance will be created using cross plane. Once the database
-is ready we will configure a TAP resource claim against the cloud sql instance so that 
+The app requires an AWS Postgres so we need a way create the  RDS
+instance. The postgres instance will be created using cross plane. Once the database
+is ready we will configure a TAP resource claim against the postgres instance so that 
 Kubernetes Service Binding is generated that allows spring boot to automatically connect to
 the application. You can read about the service binding spec at 
 [https://servicebinding.io/](https://servicebinding.io/)
 
-1. Review the cross plane `PostgreSQLInstance` config located in `db/gcp/cloudsql-postgres.yaml` 
-2. Apply cross plane config`kubectl apply -f db/gcp/cloudsql-postgres.yaml --namespace TARGET-NS` 
-3. Go to the GCP console and watch the DB being created 
+1. Review the cross plane `PostgreSQLInstance` config located in `db/aws/rds-postgres.yaml` 
+2. Apply cross plane config`kubectl apply -f db/aws/rds-postgres.yaml --namespace TARGET-NS` 
+3. Go to the AWS console and watch the DB being created 
 4. monitor the creation of the postgres `kubectl get postgresqlinstance sample-api-db -n TARGET-NS` 
    after a few minutes you will see output indicating that the db is ready as shown below. It can
-   take several minutes for GCP to spin up the database so you will need to wait a few minutes.
+   take several minutes for AWS to spin up the database so you will need to wait a few minutes.
 ```text
 NAME            READY   CONNECTION-SECRET    AGE
 sample-api-db   True    sample-api-db-conn   3m55s
@@ -77,7 +77,7 @@ metadata:
 type: Opaque
 stringData:
   type: postgresql
-  provider: gcp
+  provider: AWS
   host: "35.225.25.133"
   port: "5432"
   database: "postgres"
@@ -116,7 +116,7 @@ type: Opaque
 1. The services' toolkit component in Tanzu Application Platform can be used define a service claim 
    against the secret we created in the last step. The command template show below you will need to 
 ```text
-  tanzu service claim create cloudsql-postgres-claim \
+  tanzu service claim create rds-postgres-claim \
   --resource-name  SECRET-NAME-FROM-LAST-STEP \
   --resource-kind Secret \
   --resource-api-version v1 \
@@ -124,7 +124,7 @@ type: Opaque
 ```
 2. For example command based on the previous step is 
 ```text
-  tanzu service claim create cloudsql-postgres-claim \
+  tanzu service claim create rds-postgres-claim \
   --resource-name  sample-api-db-conn-service-binding-compatible \
   --resource-kind Secret \
   --resource-api-version v1 \
@@ -134,8 +134,8 @@ type: Opaque
 ```text
   Warning: This is an ALPHA command and may change without notice.
 
-Creating claim 'cloudsql-postgres-claim' in namespace 'asaikali'.
-Please run `tanzu services claims get cloudsql-postgres-claim --namespace asaikali` to see the progress of create.
+Creating claim 'rds-postgres-claim' in namespace 'asaikali'.
+Please run `tanzu services claims get rds-postgres-claim --namespace asaikali` to see the progress of create.
 ```
 3. List all the claims that exist in the namespace `tanzu services claims list -n asaikali` should produce output 
    showing that the claim we just created is ready to be used
@@ -143,17 +143,17 @@ Please run `tanzu services claims get cloudsql-postgres-claim --namespace asaika
  Warning: This is an ALPHA command and may change without notice.
 
   NAME                     READY  REASON  
-  cloudsql-postgres-claim  True           
+  rds-postgres-claim  True           
 ```
 4. Inspect that the claim status using suggested command output from previous step 
-   `tanzu services claims get cloudsql-postgres-claim --namespace asaikali` produces the k8s YAML that the command 
+   `tanzu services claims get rds-postgres-claim --namespace asaikali` produces the k8s YAML that the command 
     in the last step generated 
 ```text
-Name: cloudsql-postgres-claim
+Name: rds-postgres-claim
 Status: 
   Ready: True
 Namespace: asaikali
-Claim Reference: services.apps.tanzu.vmware.com/v1alpha1:ResourceClaim:cloudsql-postgres-claim
+Claim Reference: services.apps.tanzu.vmware.com/v1alpha1:ResourceClaim:rds-postgres-claim
 Resource to Claim: 
   Name: sample-api-db-conn-service-binding-compatible
   Namespace: asaikali
@@ -191,11 +191,11 @@ Create workload:
      13 + |    value:
      14 + |      autoscaling.knative.dev/minScale: "1"
      15 + |  serviceClaims:
-     16 + |  - name: cloudsql-postgres
+     16 + |  - name: rds-postgres
      17 + |    ref:
      18 + |      apiVersion: services.apps.tanzu.vmware.com/v1alpha1
      19 + |      kind: ResourceClaim
-     20 + |      name: cloudsql-postgres-claim
+     20 + |      name: rds-postgres-claim
      21 + |  source:
      22 + |    git:
      23 + |      ref:
@@ -219,7 +219,7 @@ type: Ready
 
 Services
 CLAIM               NAME                      KIND            API VERSION
-cloudsql-postgres   cloudsql-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
+rds-postgres   rds-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
 
 Pods
 NAME                           STATUS    RESTARTS   AGE
@@ -247,7 +247,7 @@ type: Ready
 
 Services
 CLAIM               NAME                      KIND            API VERSION
-cloudsql-postgres   cloudsql-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
+rds-postgres   rds-postgres-claim   ResourceClaim   services.apps.tanzu.vmware.com/v1alpha1
 
 Pods
 NAME                                           STATUS      RESTARTS   AGE
@@ -263,38 +263,10 @@ sample-api-config-writer-zskh4-pod             Succeeded   0          3m3s
 
 Knative Services
 NAME         READY   URL
-sample-api   Ready   http://sample-api-asaikali.cnr.iterate.gcp.tanzu.ca
+sample-api   Ready   http://sample-api-asaikali.cnr.iterate.AWS.tanzu.ca
 ```
 10. Visit the application at the printed url you will see rotating motivational quote similar to the screenshot below
     ![Supply chain](/docs/quote-app.png?raw=true "Example Supply Chain")
-
-11. If you want you can connect to the postgres db from the gcp shell using the command
-    `gcloud sql connect myinstance --user=postgres`  to get into the psql cli and inspect the database. Example output
-```text
-gcloud sql connect sample-api-db-hqvhc-2bv5p --user=postgres                                                                                                                                                                                                                                    
-                                                                                                                                                                                                                                                                                      Allowlisting your IP for incoming connection for 5 minutes...done.Connecting to database with SQL user [postgres].Password:psql (14.2 (Debian 14.2-1.pgdg110+1), server 12.10)SSL connection (protocol: TLSv1.3, cipher: TLS_AES_256_GCM_SHA384, bits: 256, compression: off)
-Type "help" for help.
-
-postgres=> \dt
-                 List of relations
- Schema |         Name          | Type  |  Owner
---------+-----------------------+-------+----------
- public | flyway_schema_history | table | postgres
- public | quotes                | table | postgres
-(2 rows)
-
-postgres=> select * from quotes;
- id |                 quote                 |        author
-----+---------------------------------------+-----------------------
-  1 | Never, never, never give up           | Winston Churchill
-  2 | While there's life, there's hope      | Marcus Tullius Cicero
-  3 | Failure is success in progress        | Anonymous
-  4 | Success demands singleness of purpose | Vincent Lombardi
-  5 | The shortest answer is doing          | Lord Herbert
-(5 rows)
-
-postgres=>
-```
 
 # View App in TAP GUI Software Catalog 
 

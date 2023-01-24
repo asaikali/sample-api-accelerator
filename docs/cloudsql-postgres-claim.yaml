@@ -2,17 +2,17 @@
 apiVersion: services.apps.tanzu.vmware.com/v1alpha1
 kind: ResourceClaim
 metadata:
-  name: cloudsql-postgres-claim
+  name: rds-postgres-claim
 spec:
   ref:
     apiVersion: v1
     kind: Secret
-    name: cloudsql-postgres-db-conn
+    name: rds-postgres-db-conn
 
 # Equivalent cli commands
 #
-#  tanzu service claim create cloudsql-postgres-claim \
-#  --resource-name cloudsql-postgres-db-conn \
+#  tanzu service claim create rds-postgres-claim \
+#  --resource-name rds-postgres-db-conn \
 #  --resource-kind Secret \
 #  --resource-api-version v1 \
 #  --namespace asaikali
