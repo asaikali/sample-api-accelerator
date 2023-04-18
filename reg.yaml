@@ -8,4 +8,4 @@ spec:
     url:  https://github.com/asaikali/sample-boot-api-accelerator
     interval: 10s
     ref:
-      branch: main
+      branch: aws
